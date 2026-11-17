@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weihnachtsmann-Hotline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Nunito:wght@400;700&family=Caveat:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="snow" aria-hidden="true"></div>
+
+  <main>
+    <!-- 1. Eltern-Formular -->
+    <section id="screen-setup" class="screen active">
+      <h1>Weihnachtsmann&shy;-Hotline</h1>
+      <p class="lead">Direkt zum Nordpol! Ruft den Weihnachtsmann an oder schreibt ihm einen Brief.</p>
+      <form id="setup-form" class="card">
+        <h2>Für Eltern</h2>
+        <p class="hint">Damit der Weihnachtsmann Ihr Kind persönlich ansprechen kann – und Sie den Wunschzettel als Amazon-Einkaufsliste per E-Mail bekommen.</p>
+        <label>Vorname des Kindes *<input name="childName" required maxlength="40" autocomplete="off"></label>
+        <label>Alter<input name="age" type="number" min="1" max="17" inputmode="numeric"></label>
+        <label>Ihr Name<input name="parentName" maxlength="60" autocomplete="name"></label>
+        <label>Ihre E-Mail-Adresse *<input name="parentEmail" type="email" required maxlength="120" autocomplete="email"></label>
+        <label>Geheimtipps für den Weihnachtsmann <span class="hint">(optional – z. B. Haustier, Geschwister, was dieses Jahr toll war)</span>
+          <textarea name="notes" rows="3" maxlength="600" placeholder="Hat dieses Jahr Fahrradfahren gelernt, Hund heißt Bello, große Schwester Mia …"></textarea>
+        </label>
+        <label class="check"><input type="checkbox" name="consent" required> Ich bin Erziehungsberechtigte/r und bin einverstanden, dass das Gespräch bzw. der Brief verarbeitet wird, um daraus eine Wunschliste zu erstellen und mir per E-Mail zu schicken. *</label>
+        <p class="error" id="setup-error"></p>
+        <button class="btn primary" type="submit">Weiter zum Nordpol ✨</button>
+      </form>
+    </section>
+
+    <!-- 2. Auswahl -->
+    <section id="screen-choose" class="screen">
+      <h1>Hallo <span class="child-name"></span>!</h1>
+      <p class="lead">Wie möchtest du dem Weihnachtsmann deine Wünsche verraten?</p>
+      <div class="choices">
+        <button class="choice" id="choose-call">
+          <span class="icon">📞</span>
+          <span class="title">Anrufen</span>
+          <span class="sub">Mit dem Weihnachtsmann sprechen</span>
+        </button>
+        <button class="choice" id="choose-letter">
+          <span class="icon">✉️</span>
+          <span class="title">Brief schreiben</span>
+          <span class="sub">Einen Wunschzettel schicken</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 3. Telefonat -->
+    <section id="screen-call" class="screen">
+      <div class="phone card">
+        <div class="santa" id="santa">
+          <div class="santa-face">🎅</div>
+          <div class="rings"><span></span><span></span><span></span></div>
+        </div>
+        <p class="call-status" id="call-status">Es klingelt am Nordpol …</p>
+        <div class="mic" id="mic" hidden>
+          <div class="mic-dot"></div>
+          <span id="mic-text">Ich höre zu …</span>
+        </div>
+        <p class="subtitle" id="subtitle"></p>
+        <p class="you-said" id="you-said"></p>
+        <form id="type-form" class="type-form" hidden>
+          <input id="type-input" placeholder="Schreib dem Weihnachtsmann …" autocomplete="off">
+          <button class="btn" type="submit">Senden</button>
+        </form>
+        <div class="call-actions">
+          <button class="btn" id="done-talking" hidden>Fertig gesprochen ✔</button>
+          <button class="btn danger" id="hangup">Auflegen</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Brief -->
+    <section id="screen-letter" class="screen">
+      <form id="letter-form" class="paper">
+        <p class="paper-head">An den Weihnachtsmann<br>Nordpol</p>
+        <textarea id="letter-text" rows="12" maxlength="5000" required></textarea>
+        <p class="error" id="letter-error"></p>
+        <button class="btn primary" type="submit" id="letter-send">Brief abschicken 🦌</button>
+      </form>
+      <div id="letter-reply" class="paper reply" hidden>
+        <p class="paper-head">Post vom Nordpol!</p>
+        <div id="letter-reply-text" class="handwriting"></div>
+        <button class="btn" id="read-letter">🔊 Vorlesen lassen</button>
+        <button class="btn primary" id="letter-done">Fertig</button>
+      </div>
+    </section>
+
+    <!-- 5. Abschluss -->
+    <section id="screen-done" class="screen">
+      <div class="card center">
+        <div class="big">🎁</div>
+        <h1>Danke, <span class="child-name"></span>!</h1>
+        <p class="lead">Der Weihnachtsmann hat alle deine Wünsche auf seine große Liste geschrieben. Die Wichtel sind schon ganz aufgeregt!</p>
+        <p class="status" id="done-status">Die Wichtel sortieren die Wunschliste …</p>
+        <details id="parent-area" hidden>
+          <summary>Nur für Eltern 🔒</summary>
+          <p id="mail-status" class="hint"></p>
+          <ul id="gift-list" class="gift-list"></ul>
+          <p id="parent-note" class="note"></p>
+        </details>
+        <button class="btn" id="restart">Nochmal von vorne</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
